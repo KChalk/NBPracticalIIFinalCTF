@@ -10,7 +10,7 @@
 typedef void (*funcp)();
 
 typedef struct node{
-	char * contents;
+	char contents[20];
 	struct node * next;
 } node;
 
@@ -38,15 +38,16 @@ void print_good() {
 
 
 node* dogs_before(int a) {
-	node * curr;
-	curr=malloc(sizeof(node)*(a+1));
+	node * curr, * orig;
+	orig=curr=malloc(sizeof(node)*(a+1));
 
 	for(int i=1;i<a;i++){
-//		strcpy(curr->contents,"niceTry");
+		strcpy(curr->contents,"niceTry");
 
-		curr->next=&curr[i];
+		curr->next=&orig[i];
 		curr=curr->next;
 	}
+	return orig;
 }
 void ferrets_before(node* pointer, int a, unsigned long b) {
 	int password=USERDEF;
@@ -54,15 +55,18 @@ void ferrets_before(node* pointer, int a, unsigned long b) {
 	if((int)b==password){
 		pointer[a-1].next=NULL;
 	}
+	else{
+		pointer[a-1].next=3;
+	}
 	cats(pointer,b);
 
-    printf("Hello world.\n");
+//    printf("Hello world.\n");
 }
 void cats (node* pointer, unsigned long b) {
 
 	while(pointer!=NULL){
 		if(b==(unsigned long)&pointer){
-			printf("%ul",USERDEF);
+			printf("Congratuatlions! You're one step away. Now just input %ul as the password.",USERDEF);
 		}
 		pointer=pointer->next;
 
@@ -86,30 +90,10 @@ void try_command() {
 
 int main() {
     funcp fg=print_good;
-//	printf("%i\n\n", USERDEF);
+//	printf("the password is %i for debugging only\n\n", USERDEF);
     signal(SIGSEGV, segv_handler);
     print_msg();
     try_command();
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
